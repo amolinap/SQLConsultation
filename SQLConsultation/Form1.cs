@@ -18,6 +18,8 @@ namespace SQLConsultation
         public Form1()
         {
             InitializeComponent();
+
+            Text = "SQLConsultation v1.0 - Framework " + typeof(string).Assembly.ImageRuntimeVersion;
         }
 
         private void btEjecutar_Click(object sender, EventArgs e)
