@@ -9,24 +9,24 @@ using System.Data.SqlClient;
 
 namespace SQLConsultation
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
         private SqlConnection conex;
         private SqlCommand cmm = new SqlCommand();
         private string sCnn;
 
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
 
-            Text = "SQLConsultation v1.0 - Framework " + typeof(string).Assembly.ImageRuntimeVersion;
+            Text = "SQLConsultation v2.0 - Framework " + typeof(string).Assembly.ImageRuntimeVersion;
         }
 
         private void btEjecutar_Click(object sender, EventArgs e)
         {
             try
             {
-                dataGridView1.DataSource = ejecutarConsulta(textBox1.Text).Tables[0].DefaultView;
+                gvSQLResult.DataSource = ejecutarConsulta(tbSQLCommand.Text).Tables[0].DefaultView;
             }
             catch (Exception ex)
             {
@@ -40,7 +40,7 @@ namespace SQLConsultation
             {
                 try
                 {
-                    dataGridView1.DataSource = ejecutarConsulta(textBox1.Text).Tables[0].DefaultView;
+                    gvSQLResult.DataSource = ejecutarConsulta(tbSQLCommand.Text).Tables[0].DefaultView;
                 }
                 catch (Exception ex)
                 {
@@ -61,7 +61,7 @@ namespace SQLConsultation
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            groupBox2.Enabled = false;
+            /*groupBox2.Enabled = false;
 
             string[] instancias;
             instancias = instanciasInstaladas();
@@ -78,7 +78,7 @@ namespace SQLConsultation
                     //comboBox1.Items.Add(@"127.0.0.1\" + s);
                 }
             }
-            comboBox1.Text = "(local)";
+            comboBox1.Text = "(local)";*/
         }
 
         private string[] instanciasInstaladas()
@@ -98,9 +98,9 @@ namespace SQLConsultation
             DataTable dt = new DataTable();
 
             // Usamos la seguridad integrada de Windows
-            if (checkBox1.Checked)
+            if (false)
             {
-                sCnn = "Server=" + instancia + "; database=master; integrated security=false; User Id=sa; Password=" + textBox2.Text + ";";
+                //sCnn = "Server=" + instancia + "; database=master; integrated security=false; User Id=sa; Password=" + textBox2.Text + ";";
             }
             else
             {
@@ -148,34 +148,34 @@ namespace SQLConsultation
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] database;
+            /*string[] database;
             database = basesDeDatos(comboBox1.SelectedItem.ToString());
 
             foreach (string db in database)
             {
                 comboBox2.Items.Add(db);
-            }
+            }*/
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            /*if (checkBox1.Checked)
             {
-                label4.Text = "Data Source=" + comboBox1.SelectedItem.ToString() + "; Initial Catalog=" + comboBox2.SelectedItem.ToString() + "; integrated security=false; User Id=sa; Password=" + textBox2.Text + ";";
+                lbConnection.Text = "Data Source=" + comboBox1.SelectedItem.ToString() + "; Initial Catalog=" + comboBox2.SelectedItem.ToString() + "; integrated security=false; User Id=sa; Password=" + textBox2.Text + ";";
             }
             else
             {
-                label4.Text = "Data Source=" + comboBox1.SelectedItem.ToString() + "; Initial Catalog=" + comboBox2.SelectedItem.ToString() + "; integrated security=yes";
+                lbConnection.Text = "Data Source=" + comboBox1.SelectedItem.ToString() + "; Initial Catalog=" + comboBox2.SelectedItem.ToString() + "; integrated security=yes";
             }
 
-            dataGridView2.DataSource = ejecutarConsulta("Select name as Tables From sysobjects Where type = 'U'").Tables[0].DefaultView;
+            dataGridView2.DataSource = ejecutarConsulta("Select name as Tables From sysobjects Where type = 'U'").Tables[0].DefaultView;*/
         }
 
         //Data Source=.\MSSMLBIZ;Initial Catalog=db_sedesol;Integrated Security=True
 
         public DataSet ejecutarConsulta(string sql)
         {
-            conex = new SqlConnection(label4.Text);
+            conex = new SqlConnection(lbConnection.Text);
             cmm.Connection = conex;
             cmm.CommandText = sql;
 
@@ -194,32 +194,35 @@ namespace SQLConsultation
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            gvSQLResult.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            /*if (checkBox1.Checked)
             {
                 groupBox2.Enabled = true;
             }
             else
             {
                 groupBox2.Enabled = false;
-            }
+            }*/
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            /*if (checkBox1.Checked)
             {
-                label4.Text = "Data Source=" + comboBox1.SelectedItem.ToString() + "; Initial Catalog=" + comboBox2.SelectedItem.ToString() + "; integrated security=false; User ID=sa; Password=" + textBox2.Text + ";";
-            }
+                lbConnection.Text = "Data Source=" + comboBox1.SelectedItem.ToString() + "; Initial Catalog=" + comboBox2.SelectedItem.ToString() + "; integrated security=false; User ID=sa; Password=" + textBox2.Text + ";";
+            }*/
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            exportToExcel(ejecutarConsulta(textBox1.Text), "C:\\Reportes\\Reporte.xml");
+            if(tbSQLCommand.Text != "")
+            {
+                exportToExcel(ejecutarConsulta(tbSQLCommand.Text), "C:\\Reportes\\Reporte.xml");
+            }
         }
 
         public static void exportToExcel(DataSet source, string fileName)
@@ -363,6 +366,16 @@ namespace SQLConsultation
             excelDoc.Write(" </Worksheet>");
             excelDoc.Write(endExcelXML);
             excelDoc.Close();
+        }
+
+        private void btConnectDB_Click(object sender, EventArgs e)
+        {
+            AccessDB accessDB = new AccessDB();
+            accessDB.ShowDialog();
+
+            lbConnection.Text = AccessDB.lbConnection;
+
+            gvTables.DataSource = ejecutarConsulta("Select name as Tables From sysobjects Where type = 'U'").Tables[0].DefaultView;
         }
     }
 }
