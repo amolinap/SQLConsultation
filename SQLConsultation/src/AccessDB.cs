@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -19,22 +20,17 @@ namespace SQLConsultation
         {
             InitializeComponent();
 
-            string[] instancias;
-            instancias = instanciasInstaladas();
+            /*DataTable dt = SqlDataSourceEnumerator.Instance.GetDataSources();
 
-            foreach (string s in instancias)
+            foreach (DataRow dr in dt.Rows)
             {
-                if (s == "MSSQLSERVER")
+                for (int i = 0; i < dr.Table.Columns.Count; i++)
                 {
-                    cbInstance.Items.Add("192.168.66.153");
+                    Console.WriteLine(dr[i]);
                 }
-                else
-                {
-                    cbInstance.Items.Add(@"(local)\" + s);
-                    //comboBox1.Items.Add(@"127.0.0.1\" + s);
-                }
-            }
-            cbInstance.Text = "(local)";
+
+                cbInstance.Items.Add(string.Concat(dr["ServerName"], "\\", dr["InstanceName"]));
+            }*/
         }
 
         private string[] instanciasInstaladas()
@@ -65,17 +61,6 @@ namespace SQLConsultation
 
         private void btLogin_Click(object sender, EventArgs e)
         {
-            /*if (scmd.ExecuteScalar().ToString() == "1")
-            {
-                MessageBox.Show("YOU ARE GRANTED WITH ACCESS");
-            }
-            else
-            {
-                MessageBox.Show("YOU ARE NOT GRANTED WITH ACCESS");
-            }*/
-
-            //lbConnection = sCnn;
-
             this.Close();
         }
 
@@ -88,7 +73,7 @@ namespace SQLConsultation
             DataTable dt = new DataTable();
 
             // Usamos la seguridad integrada de Windows
-           
+
             if (cxUser.Checked)
             {
                 sCnn = "Server=" + instancia + "; database=master; integrated security=false; User Id=" + tbUser.Text + "; Password=" + tbPassword.Text;
@@ -140,7 +125,8 @@ namespace SQLConsultation
         private void cbInstance_SelectedIndexChanged(object sender, EventArgs e)
         {
             string[] database;
-            database = basesDeDatos(cbInstance.SelectedItem.ToString());
+            instance = cbInstance.SelectedItem.ToString();
+            database = basesDeDatos(tbServer.Text + "\\" + instance);
 
             foreach (string db in database)
             {
@@ -152,11 +138,56 @@ namespace SQLConsultation
         {
             if (cxUser.Checked)
             {
-                lbConnection = "Data Source=" + cbInstance.SelectedItem.ToString() + "; Initial Catalog=" + cbDataBase.SelectedItem.ToString() + "; integrated security=false; User Id=" + tbUser.Text + "; Password=" + tbPassword.Text;
+                lbConnection = "Data Source=" + tbServer.Text + "\\" + instance + "; Initial Catalog=" + cbDataBase.SelectedItem.ToString() + "; integrated security=false; User Id=" + tbUser.Text + "; Password=" + tbPassword.Text;
             }
             else
             {
-                lbConnection = "Data Source=" + cbInstance.SelectedItem.ToString() + "; Initial Catalog=" + cbDataBase.SelectedItem.ToString() + "; integrated security=yes";
+                lbConnection = "Data Source=" + tbServer.Text + "\\" + instance + "; Initial Catalog=" + cbDataBase.SelectedItem.ToString() + "; integrated security=yes";
+            }
+        }
+
+        private void tbServer_Leave(object sender, EventArgs e)
+        {
+            if (tbServer.Text == "localhost" || tbServer.Text == "127.0.0.1")
+            {
+                cbInstance.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                string[] instancias;
+                instancias = instanciasInstaladas();
+
+                foreach (string s in instancias)
+                {
+                    if (s == "MSSQLSERVER")
+                    {
+                        cbInstance.Items.Add("192.168.66.153");
+                    }
+                    else
+                    {
+                        cbInstance.Items.Add(s);
+                        //comboBox1.Items.Add(@"127.0.0.1\" + s);
+                    }
+                }
+                cbInstance.Text = "(local)";
+            }
+            else
+            {
+                cbInstance.DropDownStyle = ComboBoxStyle.Simple;
+            }
+        }
+
+        string instance;
+        private void cbInstance_Leave(object sender, EventArgs e)
+        {
+            if (cbInstance.DropDownStyle == ComboBoxStyle.Simple)
+            {
+                string[] database;
+                instance = cbInstance.Text;
+                database = basesDeDatos(tbServer.Text + "\\" + instance);
+
+                foreach (string db in database)
+                {
+                    cbDataBase.Items.Add(db);
+                }
             }
         }
     }

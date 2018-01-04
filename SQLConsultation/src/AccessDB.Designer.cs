@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccessDB));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbServer = new System.Windows.Forms.TextBox();
             this.btLogin = new System.Windows.Forms.Button();
             this.cxUser = new System.Windows.Forms.CheckBox();
             this.gbUser = new System.Windows.Forms.GroupBox();
@@ -47,6 +49,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.tbServer);
             this.groupBox1.Controls.Add(this.btLogin);
             this.groupBox1.Controls.Add(this.cxUser);
             this.groupBox1.Controls.Add(this.gbUser);
@@ -57,14 +61,34 @@
             this.groupBox1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(364, 195);
+            this.groupBox1.Size = new System.Drawing.Size(363, 226);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Conexión a BD";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(12, 136);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 16);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Instancia";
+            // 
+            // tbServer
+            // 
+            this.tbServer.Location = new System.Drawing.Point(112, 105);
+            this.tbServer.Name = "tbServer";
+            this.tbServer.Size = new System.Drawing.Size(242, 22);
+            this.tbServer.TabIndex = 11;
+            this.tbServer.Text = "localhost";
+            this.tbServer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbServer.Leave += new System.EventHandler(this.tbServer_Leave);
+            // 
             // btLogin
             // 
-            this.btLogin.Location = new System.Drawing.Point(279, 165);
+            this.btLogin.Location = new System.Drawing.Point(279, 193);
             this.btLogin.Name = "btLogin";
             this.btLogin.Size = new System.Drawing.Size(75, 23);
             this.btLogin.TabIndex = 10;
@@ -134,7 +158,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 143);
+            this.label2.Location = new System.Drawing.Point(12, 166);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 16);
             this.label2.TabIndex = 4;
@@ -145,7 +169,7 @@
             this.cbDataBase.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDataBase.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDataBase.FormattingEnabled = true;
-            this.cbDataBase.Location = new System.Drawing.Point(112, 135);
+            this.cbDataBase.Location = new System.Drawing.Point(112, 163);
             this.cbDataBase.Name = "cbDataBase";
             this.cbDataBase.Size = new System.Drawing.Size(242, 24);
             this.cbDataBase.TabIndex = 5;
@@ -166,17 +190,18 @@
             this.cbInstance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbInstance.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbInstance.FormattingEnabled = true;
-            this.cbInstance.Location = new System.Drawing.Point(112, 105);
+            this.cbInstance.Location = new System.Drawing.Point(112, 133);
             this.cbInstance.Name = "cbInstance";
             this.cbInstance.Size = new System.Drawing.Size(242, 24);
             this.cbInstance.TabIndex = 3;
             this.cbInstance.SelectedIndexChanged += new System.EventHandler(this.cbInstance_SelectedIndexChanged);
+            this.cbInstance.Leave += new System.EventHandler(this.cbInstance_Leave);
             // 
             // AccessDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(388, 212);
+            this.ClientSize = new System.Drawing.Size(387, 250);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AccessDB";
@@ -205,5 +230,7 @@
         private System.Windows.Forms.TextBox tbUser;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btLogin;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbServer;
     }
 }
