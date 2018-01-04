@@ -11,10 +11,6 @@ namespace SQLConsultation
 {
     public partial class MainWindow : Form
     {
-        private SqlConnection conex;
-        private SqlCommand cmm = new SqlCommand();
-        private string sCnn;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -53,129 +49,12 @@ namespace SQLConsultation
         {
             this.Close();
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(SQLConsultation.Properties.Settings.Default.Connection);
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            /*groupBox2.Enabled = false;
-
-            string[] instancias;
-            instancias = instanciasInstaladas();
-
-            foreach (string s in instancias)
-            {
-                if (s == "MSSQLSERVER")
-                {
-                    comboBox1.Items.Add("192.168.66.153");
-                }
-                else
-                {
-                    comboBox1.Items.Add(@"(local)\" + s);
-                    //comboBox1.Items.Add(@"127.0.0.1\" + s);
-                }
-            }
-            comboBox1.Text = "(local)";*/
-        }
-
-        private string[] instanciasInstaladas()
-        {
-            Microsoft.Win32.RegistryKey RKey;
-            RKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Microsoft SQL Server", false);
-            string[] instancias;
-            instancias = ((string[])RKey.GetValue("InstalledInstances"));
-            return instancias;
-        }
-
-        private String[] basesDeDatos(string instancia)
-        {
-            // Las bases de datos propias de SQL Server
-            string[] basesSys = { "master", "model", "msdb", "tempdb" };
-            string[] bases;
-            DataTable dt = new DataTable();
-
-            // Usamos la seguridad integrada de Windows
-            if (false)
-            {
-                //sCnn = "Server=" + instancia + "; database=master; integrated security=false; User Id=sa; Password=" + textBox2.Text + ";";
-            }
-            else
-            {
-                sCnn = "Server=" + instancia + "; database=master; integrated security=yes";
-            }
-
-            // La orden T-SQL para recuperar las bases de master
-            string sel = "SELECT name FROM sysdatabases";
-            try
-            {
-                SqlDataAdapter da = new SqlDataAdapter(sel, sCnn);
-                da.Fill(dt);
-                bases = new string[dt.Rows.Count - 1];
-                int k = -1;
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    string s = dt.Rows[i]["name"].ToString();
-                    // Solo asignar las bases que no son del sistema
-                    if (Array.IndexOf(basesSys, s) == -1)
-                    {
-                        k += 1;
-                        bases[k] = s;
-                    }
-                }
-                if (k == -1) return null;
-                // ReDim Preserve
-                {
-                    int i1_RPbases = bases.Length;
-                    string[] copiaDe_bases = new string[i1_RPbases];
-                    Array.Copy(bases, copiaDe_bases, i1_RPbases);
-                    bases = new string[(k + 1)];
-                    Array.Copy(copiaDe_bases, bases, (k + 1));
-                };
-                return bases;
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message,
-                    "Error al recuperar las bases de la instancia indicada",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return null;
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /*string[] database;
-            database = basesDeDatos(comboBox1.SelectedItem.ToString());
-
-            foreach (string db in database)
-            {
-                comboBox2.Items.Add(db);
-            }*/
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /*if (checkBox1.Checked)
-            {
-                lbConnection.Text = "Data Source=" + comboBox1.SelectedItem.ToString() + "; Initial Catalog=" + comboBox2.SelectedItem.ToString() + "; integrated security=false; User Id=sa; Password=" + textBox2.Text + ";";
-            }
-            else
-            {
-                lbConnection.Text = "Data Source=" + comboBox1.SelectedItem.ToString() + "; Initial Catalog=" + comboBox2.SelectedItem.ToString() + "; integrated security=yes";
-            }
-
-            dataGridView2.DataSource = ejecutarConsulta("Select name as Tables From sysobjects Where type = 'U'").Tables[0].DefaultView;*/
-        }
-
-        //Data Source=.\MSSMLBIZ;Initial Catalog=db_sedesol;Integrated Security=True
-
+        
         public DataSet ejecutarConsulta(string sql)
         {
-            conex = new SqlConnection(lbConnection.Text);
+            SqlConnection conex = new SqlConnection(lbConnection.Text);
+            SqlCommand cmm = new SqlCommand();
+
             cmm.Connection = conex;
             cmm.CommandText = sql;
 
@@ -196,38 +75,9 @@ namespace SQLConsultation
         {
             gvSQLResult.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            /*if (checkBox1.Checked)
-            {
-                groupBox2.Enabled = true;
-            }
-            else
-            {
-                groupBox2.Enabled = false;
-            }*/
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            /*if (checkBox1.Checked)
-            {
-                lbConnection.Text = "Data Source=" + comboBox1.SelectedItem.ToString() + "; Initial Catalog=" + comboBox2.SelectedItem.ToString() + "; integrated security=false; User ID=sa; Password=" + textBox2.Text + ";";
-            }*/
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            if(tbSQLCommand.Text != "")
-            {
-                exportToExcel(ejecutarConsulta(tbSQLCommand.Text), "C:\\Reportes\\Reporte.xml");
-            }
-        }
-
+        
         public static void exportToExcel(DataSet source, string fileName)
         {
-
             System.IO.StreamWriter excelDoc;
 
             excelDoc = new System.IO.StreamWriter(fileName);
@@ -376,6 +226,19 @@ namespace SQLConsultation
             lbConnection.Text = AccessDB.lbConnection;
 
             gvTables.DataSource = ejecutarConsulta("Select name as Tables From sysobjects Where type = 'U'").Tables[0].DefaultView;
+        }
+
+        private void btTables_Click(object sender, EventArgs e)
+        {
+            gvTables.DataSource = ejecutarConsulta("Select name as Tables From sysobjects Where type = 'U'").Tables[0].DefaultView;
+        }
+
+        private void btSaveXML_Click(object sender, EventArgs e)
+        {
+            if (tbSQLCommand.Text != "")
+            {
+                exportToExcel(ejecutarConsulta(tbSQLCommand.Text), "C:\\Reportes\\Reporte.xml");
+            }
         }
     }
 }

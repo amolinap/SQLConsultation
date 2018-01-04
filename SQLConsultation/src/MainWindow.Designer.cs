@@ -46,6 +46,7 @@ namespace SQLConsultation
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btTables = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.gvSQLResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTables)).BeginInit();
@@ -181,7 +182,7 @@ namespace SQLConsultation
             this.gvTables.Name = "gvTables";
             this.gvTables.RowHeadersVisible = false;
             this.gvTables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvTables.Size = new System.Drawing.Size(185, 212);
+            this.gvTables.Size = new System.Drawing.Size(185, 183);
             this.gvTables.TabIndex = 6;
             // 
             // btSaveXML
@@ -193,7 +194,7 @@ namespace SQLConsultation
             this.btSaveXML.TabIndex = 7;
             this.btSaveXML.Text = "Guardar como XML";
             this.btSaveXML.UseVisualStyleBackColor = true;
-            this.btSaveXML.Click += new System.EventHandler(this.button2_Click_1);
+            this.btSaveXML.Click += new System.EventHandler(this.btSaveXML_Click);
             // 
             // btConnectDB
             // 
@@ -262,6 +263,7 @@ namespace SQLConsultation
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.btTables);
             this.groupBox4.Controls.Add(this.gvTables);
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
             this.groupBox4.Name = "groupBox4";
@@ -269,6 +271,16 @@ namespace SQLConsultation
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Tablas";
+            // 
+            // btTables
+            // 
+            this.btTables.Location = new System.Drawing.Point(6, 202);
+            this.btTables.Name = "btTables";
+            this.btTables.Size = new System.Drawing.Size(184, 23);
+            this.btTables.TabIndex = 9;
+            this.btTables.Text = "Refrescar";
+            this.btTables.UseVisualStyleBackColor = true;
+            this.btTables.Click += new System.EventHandler(this.btTables_Click);
             // 
             // groupBox5
             // 
@@ -299,7 +311,6 @@ namespace SQLConsultation
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SQL Consultation";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gvSQLResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTables)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -335,6 +346,7 @@ namespace SQLConsultation
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button btTables;
     }
 }
 
