@@ -43,6 +43,9 @@
     <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataBaseNet">
+      <HintPath>..\..\MisLibrerias\dlls\DataBaseNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -58,7 +61,6 @@
     <Compile Include="src\AccessDB.Designer.cs">
       <DependentUpon>AccessDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\SQLServer.cs" />
     <Compile Include="src\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,3 +1,7 @@
+-----------------------------------------------------------
 SQLConsultation
 
-App to connect to a SQL Express DataBase
+Aplicación para conectarse a bases de datos Microsoft SQLServer
+
+Este proyecto hace referencia al repositorio: https://github.com/amolinap/AccessDataBase.Net
+- De la carpeta dlls se hace referencia a: DataBaseNet.dll

@@ -14,12 +14,14 @@ namespace SQLConsultation
 {
     public partial class AccessDB : Form
     {
+        public static bool isReady;
         public static string lbConnection;
 
         public AccessDB()
         {
             InitializeComponent();
 
+            isReady = false;
             /*DataTable dt = SqlDataSourceEnumerator.Instance.GetDataSources();
 
             foreach (DataRow dr in dt.Rows)
@@ -144,6 +146,8 @@ namespace SQLConsultation
             {
                 lbConnection = "Data Source=" + tbServer.Text + "\\" + instance + "; Initial Catalog=" + cbDataBase.SelectedItem.ToString() + "; integrated security=yes";
             }
+
+            isReady = true;
         }
 
         private void tbServer_Leave(object sender, EventArgs e)

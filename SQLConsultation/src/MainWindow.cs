@@ -5,12 +5,15 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+
+using DataBaseNet;
 
 namespace SQLConsultation
 {
     public partial class MainWindow : Form
     {
+        DBSQLServer sqlServer;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -22,7 +25,7 @@ namespace SQLConsultation
         {
             try
             {
-                gvSQLResult.DataSource = ejecutarConsulta(tbSQLCommand.Text).Tables[0].DefaultView;
+                gvSQLResult.DataSource = sqlServer.EjecutarConsulta(tbSQLCommand.Text).Tables[0].DefaultView;
             }
             catch (Exception ex)
             {
@@ -36,7 +39,7 @@ namespace SQLConsultation
             {
                 try
                 {
-                    gvSQLResult.DataSource = ejecutarConsulta(tbSQLCommand.Text).Tables[0].DefaultView;
+                    gvSQLResult.DataSource = sqlServer.EjecutarConsulta(tbSQLCommand.Text).Tables[0].DefaultView;
                 }
                 catch (Exception ex)
                 {
@@ -50,27 +53,6 @@ namespace SQLConsultation
             this.Close();
         }
         
-        public DataSet ejecutarConsulta(string sql)
-        {
-            SqlConnection conex = new SqlConnection(lbConnection.Text);
-            SqlCommand cmm = new SqlCommand();
-
-            cmm.Connection = conex;
-            cmm.CommandText = sql;
-
-            SqlDataAdapter da = new SqlDataAdapter();
-            da.SelectCommand = cmm;
-
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-
-            conex.Open();
-            cmm.ExecuteNonQuery();
-            conex.Close();
-
-            return ds;
-        }
-
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             gvSQLResult.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -223,21 +205,25 @@ namespace SQLConsultation
             AccessDB accessDB = new AccessDB();
             accessDB.ShowDialog();
 
-            lbConnection.Text = AccessDB.lbConnection;
+            if (AccessDB.isReady)
+            {
+                lbConnection.Text = AccessDB.lbConnection;
+                sqlServer = new DBSQLServer(lbConnection.Text);
 
-            gvTables.DataSource = ejecutarConsulta("Select name as Tables From sysobjects Where type = 'U'").Tables[0].DefaultView;
+                gvTables.DataSource = sqlServer.EjecutarConsulta("Select name as Tables From sysobjects Where type = 'U'").Tables[0].DefaultView;
+            }
         }
 
         private void btTables_Click(object sender, EventArgs e)
         {
-            gvTables.DataSource = ejecutarConsulta("Select name as Tables From sysobjects Where type = 'U'").Tables[0].DefaultView;
+            gvTables.DataSource = sqlServer.EjecutarConsulta("Select name as Tables From sysobjects Where type = 'U'").Tables[0].DefaultView;
         }
 
         private void btSaveXML_Click(object sender, EventArgs e)
         {
             if (tbSQLCommand.Text != "")
             {
-                exportToExcel(ejecutarConsulta(tbSQLCommand.Text), "C:\\Reportes\\Reporte.xml");
+                exportToExcel(sqlServer.EjecutarConsulta(tbSQLCommand.Text), "C:\\Reportes\\Reporte.xml");
             }
         }
     }
