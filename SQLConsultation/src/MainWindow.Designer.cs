@@ -72,18 +72,18 @@ namespace SQLConsultation
             this.tbSQLCommand.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbSQLCommand.ForeColor = System.Drawing.Color.Lime;
             this.tbSQLCommand.Location = new System.Drawing.Point(8, 16);
-            this.tbSQLCommand.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbSQLCommand.Margin = new System.Windows.Forms.Padding(4);
             this.tbSQLCommand.Multiline = true;
             this.tbSQLCommand.Name = "tbSQLCommand";
-            this.tbSQLCommand.Size = new System.Drawing.Size(1332, 429);
+            this.tbSQLCommand.Size = new System.Drawing.Size(1031, 356);
             this.tbSQLCommand.TabIndex = 0;
             this.tbSQLCommand.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // btPlay
             // 
             this.btPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPlay.Location = new System.Drawing.Point(1531, 1001);
-            this.btPlay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btPlay.Location = new System.Drawing.Point(1151, 855);
+            this.btPlay.Margin = new System.Windows.Forms.Padding(4);
             this.btPlay.Name = "btPlay";
             this.btPlay.Size = new System.Drawing.Size(100, 28);
             this.btPlay.TabIndex = 1;
@@ -94,8 +94,8 @@ namespace SQLConsultation
             // btClose
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose.Location = new System.Drawing.Point(1639, 1001);
-            this.btClose.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btClose.Location = new System.Drawing.Point(1259, 855);
+            this.btClose.Margin = new System.Windows.Forms.Padding(4);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(100, 28);
             this.btClose.TabIndex = 2;
@@ -130,10 +130,10 @@ namespace SQLConsultation
             this.gvSQLResult.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gvSQLResult.GridColor = System.Drawing.Color.Black;
             this.gvSQLResult.Location = new System.Drawing.Point(8, 17);
-            this.gvSQLResult.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gvSQLResult.Margin = new System.Windows.Forms.Padding(4);
             this.gvSQLResult.Name = "gvSQLResult";
             this.gvSQLResult.RowHeadersVisible = false;
-            this.gvSQLResult.Size = new System.Drawing.Size(1699, 438);
+            this.gvSQLResult.Size = new System.Drawing.Size(1319, 363);
             this.gvSQLResult.TabIndex = 3;
             this.gvSQLResult.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
@@ -142,7 +142,7 @@ namespace SQLConsultation
             this.lbConnection.AutoSize = true;
             this.lbConnection.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbConnection.ForeColor = System.Drawing.Color.Red;
-            this.lbConnection.Location = new System.Drawing.Point(296, 18);
+            this.lbConnection.Location = new System.Drawing.Point(288, 19);
             this.lbConnection.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbConnection.Name = "lbConnection";
             this.lbConnection.Size = new System.Drawing.Size(25, 19);
@@ -185,18 +185,18 @@ namespace SQLConsultation
             this.gvTables.DefaultCellStyle = dataGridViewCellStyle4;
             this.gvTables.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gvTables.Location = new System.Drawing.Point(7, 16);
-            this.gvTables.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gvTables.Margin = new System.Windows.Forms.Padding(4);
             this.gvTables.Name = "gvTables";
             this.gvTables.RowHeadersVisible = false;
             this.gvTables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvTables.Size = new System.Drawing.Size(330, 394);
+            this.gvTables.Size = new System.Drawing.Size(249, 321);
             this.gvTables.TabIndex = 6;
             // 
             // btSaveXML
             // 
             this.btSaveXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSaveXML.Location = new System.Drawing.Point(1373, 1001);
-            this.btSaveXML.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btSaveXML.Location = new System.Drawing.Point(993, 855);
+            this.btSaveXML.Margin = new System.Windows.Forms.Padding(4);
             this.btSaveXML.Name = "btSaveXML";
             this.btSaveXML.Size = new System.Drawing.Size(151, 28);
             this.btSaveXML.TabIndex = 7;
@@ -207,7 +207,7 @@ namespace SQLConsultation
             // btConnectDB
             // 
             this.btConnectDB.Location = new System.Drawing.Point(16, 15);
-            this.btConnectDB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btConnectDB.Margin = new System.Windows.Forms.Padding(4);
             this.btConnectDB.Name = "btConnectDB";
             this.btConnectDB.Size = new System.Drawing.Size(111, 28);
             this.btConnectDB.TabIndex = 8;
@@ -221,7 +221,7 @@ namespace SQLConsultation
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(16, 50);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -232,8 +232,8 @@ namespace SQLConsultation
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox5);
-            this.splitContainer1.Size = new System.Drawing.Size(1723, 943);
-            this.splitContainer1.SplitterDistance = 468;
+            this.splitContainer1.Size = new System.Drawing.Size(1343, 797);
+            this.splitContainer1.SplitterDistance = 395;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 9;
             // 
@@ -243,7 +243,7 @@ namespace SQLConsultation
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer2.Location = new System.Drawing.Point(4, 4);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -253,8 +253,8 @@ namespace SQLConsultation
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox4);
-            this.splitContainer2.Size = new System.Drawing.Size(1715, 461);
-            this.splitContainer2.SplitterDistance = 1358;
+            this.splitContainer2.Size = new System.Drawing.Size(1335, 388);
+            this.splitContainer2.SplitterDistance = 1057;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 9;
             // 
@@ -265,10 +265,10 @@ namespace SQLConsultation
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.tbSQLCommand);
             this.groupBox3.Location = new System.Drawing.Point(4, 4);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox3.Size = new System.Drawing.Size(1350, 453);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(1049, 380);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Comando SQL";
@@ -281,10 +281,10 @@ namespace SQLConsultation
             this.groupBox4.Controls.Add(this.btTables);
             this.groupBox4.Controls.Add(this.gvTables);
             this.groupBox4.Location = new System.Drawing.Point(4, 4);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox4.Size = new System.Drawing.Size(344, 453);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Size = new System.Drawing.Size(263, 380);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Tablas";
@@ -292,8 +292,8 @@ namespace SQLConsultation
             // btTables
             // 
             this.btTables.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btTables.Location = new System.Drawing.Point(208, 418);
-            this.btTables.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btTables.Location = new System.Drawing.Point(127, 345);
+            this.btTables.Margin = new System.Windows.Forms.Padding(4);
             this.btTables.Name = "btTables";
             this.btTables.Size = new System.Drawing.Size(127, 28);
             this.btTables.TabIndex = 9;
@@ -308,10 +308,10 @@ namespace SQLConsultation
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.gvSQLResult);
             this.groupBox5.Location = new System.Drawing.Point(4, 4);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox5.Size = new System.Drawing.Size(1715, 462);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Size = new System.Drawing.Size(1335, 387);
             this.groupBox5.TabIndex = 8;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Resultado SQL";
@@ -320,7 +320,7 @@ namespace SQLConsultation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1755, 1044);
+            this.ClientSize = new System.Drawing.Size(1375, 877);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.btConnectDB);
             this.Controls.Add(this.lbConnection);
@@ -329,7 +329,7 @@ namespace SQLConsultation
             this.Controls.Add(this.btClose);
             this.Controls.Add(this.btPlay);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SQL Consultation";

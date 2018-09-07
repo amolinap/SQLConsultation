@@ -16,12 +16,16 @@ namespace SQLConsultation
     {
         public static bool isReady;
         public static string lbConnection;
+        private int port;
 
         public AccessDB()
         {
             InitializeComponent();
 
             isReady = false;
+            
+            nuPort.Enabled = false;
+            port = int.Parse(nuPort.Value.ToString());
             /*DataTable dt = SqlDataSourceEnumerator.Instance.GetDataSources();
 
             foreach (DataRow dr in dt.Rows)
@@ -76,13 +80,20 @@ namespace SQLConsultation
 
             // Usamos la seguridad integrada de Windows
 
+            string portConnection = "";
+
+            if (cxPort.Checked)
+            {
+                portConnection = ", " + port;
+            }
+
             if (cxUser.Checked)
             {
-                sCnn = "Server=" + instancia + "; database=master; integrated security=false; User Id=" + tbUser.Text + "; Password=" + tbPassword.Text;
+                sCnn = "Server=" + instancia + portConnection + "; database=master; integrated security=false; User Id=" + tbUser.Text + "; Password=" + tbPassword.Text; ;
             }
             else
             {
-                sCnn = "Server=" + instancia + "; database=master; integrated security=yes";
+                sCnn = "Server=" + instancia + portConnection + "; database=master; integrated security=yes";
             }
 
             // La orden T-SQL para recuperar las bases de master
@@ -126,25 +137,39 @@ namespace SQLConsultation
 
         private void cbInstance_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] database;
-            instance = cbInstance.SelectedItem.ToString();
-            database = basesDeDatos(tbServer.Text + "\\" + instance);
-
-            foreach (string db in database)
+            try 
             {
-                cbDataBase.Items.Add(db);
+                string[] database;
+                instance = cbInstance.SelectedItem.ToString();
+                database = basesDeDatos(tbServer.Text + "\\" + instance);
+
+                foreach (string db in database)
+                {
+                    cbDataBase.Items.Add(db);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void cbDataBase_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string portConnection = "";
+            
+            if (cxPort.Checked)
+            {
+                portConnection = ", " + port;
+            }
+            
             if (cxUser.Checked)
             {
-                lbConnection = "Data Source=" + tbServer.Text + "\\" + instance + "; Initial Catalog=" + cbDataBase.SelectedItem.ToString() + "; integrated security=false; User Id=" + tbUser.Text + "; Password=" + tbPassword.Text;
+                lbConnection = "Data Source=" + tbServer.Text + "\\" + instance + portConnection + "; Initial Catalog=" + cbDataBase.SelectedItem.ToString() + "; integrated security=false; User Id=" + tbUser.Text + "; Password=" + tbPassword.Text;
             }
             else
             {
-                lbConnection = "Data Source=" + tbServer.Text + "\\" + instance + "; Initial Catalog=" + cbDataBase.SelectedItem.ToString() + "; integrated security=yes";
+                lbConnection = "Data Source=" + tbServer.Text + "\\" + instance + portConnection + "; Initial Catalog=" + cbDataBase.SelectedItem.ToString() + "; integrated security=yes";
             }
 
             isReady = true;
@@ -161,16 +186,9 @@ namespace SQLConsultation
 
                 foreach (string s in instancias)
                 {
-                    if (s == "MSSQLSERVER")
-                    {
-                        cbInstance.Items.Add("192.168.66.153");
-                    }
-                    else
-                    {
-                        cbInstance.Items.Add(s);
-                        //comboBox1.Items.Add(@"127.0.0.1\" + s);
-                    }
+                    cbInstance.Items.Add(s);
                 }
+
                 cbInstance.Text = "(local)";
             }
             else
@@ -192,6 +210,23 @@ namespace SQLConsultation
                 {
                     cbDataBase.Items.Add(db);
                 }
+            }
+        }
+
+        private void nuPort_ValueChanged(object sender, EventArgs e)
+        {
+            port = int.Parse(nuPort.Value.ToString());
+        }
+
+        private void cxPort_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cxPort.Checked)
+            {
+                nuPort.Enabled = true;
+            }
+            else
+            {
+                nuPort.Enabled = false;
             }
         }
     }
